@@ -16,6 +16,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:coverage": "npm run test -- --coverage --watchAll=false",
+    "e2e": "cypress run --browser chrome",
     "api": "json-server --watch db.json --port 8080",
     "format": "prettier --write \"src/**/*{.js,.jsx}\"",
     "lint": "eslint \"src/**/*{.js,.jsx}\" --quiet",
