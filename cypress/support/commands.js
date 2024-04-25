@@ -1,7 +1,7 @@
 Cypress.Commands.add('getByDataCy', (selector) => {
-  return cy.get(`[data-cy=${selector}]`);
+  return cy.get(`[data-test=${selector}]`);
 });
 
 Cypress.Commands.add('containsText', (selector, text) => {
-  return cy.get(`[data-cy=${selector}]`).contains(text);
+  return cy.get(`[data-test=${selector}]`).contains(text);
 });
