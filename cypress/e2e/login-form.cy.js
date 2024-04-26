@@ -12,4 +12,14 @@ describe('LoginForm spec', () => {
 
     cy.getByDataCy('mensagem-erro').should('exist').and('have.text', 'O email digitado é inválido');
   })
+
+  it('should NOT allow an empty e-mail', () => {
+    cy.getByDataCy('botao-login').click();
+    // cy.getByDataCy('email-input').type(''); NO NEED
+    cy.getByDataCy('senha-input').type('123456');
+
+    cy.getByDataCy('botao-enviar').click();
+
+    cy.getByDataCy('mensagem-erro').should('exist').and('have.text', 'O campo email é obrigatório');
+  })
 })
