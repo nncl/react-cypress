@@ -6,8 +6,11 @@ describe('Testing multiple pages', () => {
     cy.getByDataCy('senha-input').type('123456')
     cy.getByDataCy('botao-enviar').click()
 
+    cy.location('pathname').should('eq',  '/home')
+
     cy.getByDataCy('app-home').find('a').eq(1).click();
 
     cy.getByDataCy('titulo-cartoes').should('exist').and('have.text', 'Meus cartões')
+    cy.location('pathname').should('eq',  '/home/cartoes')
   })
 })
