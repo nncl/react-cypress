@@ -3,6 +3,12 @@ describe('LoginForm spec', () => {
     cy.visit('http://localhost:3000')
   })
 
+  it('should access homepage', () => {
+    cy.login('hello@world.com', '123456')
+
+    cy.getByDataCy('titulo-boas-vindas').should('contain', 'Bem vindo de volta');
+  })
+
   it('should NOT submit form when e-mail is invalid', () => {
     cy.getByDataCy('botao-login').click();
     cy.getByDataCy('email-input').type('damn@bro');
