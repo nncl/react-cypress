@@ -9,12 +9,14 @@ Cypress.Commands.add('containsText', (selector, text) => {
 });
 
 Cypress.Commands.add('login', (email, password) => {
-  cy.visit('http://localhost:3000')
+  cy.session([email, password], () => {
+    cy.visit('/')
 
-  cy.getByDataCy('botao-login').click();
-  cy.getByDataCy('email-input').type(email);
-  cy.getByDataCy('senha-input').type(password);
-  cy.getByDataCy('botao-enviar').click();
+    cy.getByDataCy('botao-login').click();
+    cy.getByDataCy('email-input').type(email);
+    cy.getByDataCy('senha-input').type(password);
+    cy.getByDataCy('botao-enviar').click();
 
-  cy.url().should('contain', '/home');
+    cy.url().should('contain', '/home');
+  })
 });

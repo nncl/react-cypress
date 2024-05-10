@@ -1,10 +1,11 @@
 describe('LoginForm spec', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000')
+    cy.visit('/')
   })
 
   it('should access homepage', () => {
     cy.login('hello@world.com', '123456')
+    cy.visit('/home')
 
     cy.getByDataCy('titulo-boas-vindas').should('contain', 'Bem vindo de volta');
   })
