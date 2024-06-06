@@ -26,12 +26,29 @@ describe('API requests', () => {
       cy.request({
         method: 'GET',
         url: 'http://localhost:8000/users/2',
-        failOnStatusCode: false,
+        failOnStatusCode: false
       }).then((response) => {
         expect(response.status).to.eq(404);
         expect(response.body).to.equal('Not Found');
       });
     });
 
+  });
+
+  context('Intercepting network requests', () => {
+    it('should intercept POST /users/login', () => {
+      cy.intercept('POST', 'public/login', {
+        statusCode: 200,
+        body: {
+          success: true,
+          message: 'Login bem sucedido!'
+        }
+      });
+
+      cy.login('caue@almeida.com', new Date().getTime().toString());
+
+      cy.visit('/home');
+      cy.getByDataCy('titulo-boas-vindas').should('contain.text', 'Bem vindo de volta!');
+    });
   });
 });
