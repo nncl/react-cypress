@@ -18,5 +18,10 @@ describe('Register Form Testing', () => {
     cy.getByDataCy('botao-enviar').click();
 
     cy.getByDataCy('mensagem-sucesso').should('contain.text', 'Cadastro realizado com sucesso!');
+
+    cy.request('GET', '/users').then(response => {
+      expect(response.body).to.have.lengthOf.at.least(1);
+      expect(response.body[response.body.length - 1 ]).to.deep.include(user);
+    })
   });
 });
