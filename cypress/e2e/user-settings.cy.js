@@ -28,6 +28,12 @@ describe('User Settings spec', () => {
 
       cy.getByDataCy('botao-salvar-alteracoes').should('not.be.disabled');
       cy.getByDataCy('botao-salvar-alteracoes').click();
+
+      cy.on('window:alert', (text) => {
+        expect(text).to.equal('Alterações salvas com sucesso!');
+      });
+
+      cy.url().should('contain', '/home');
     });
   });
 });
