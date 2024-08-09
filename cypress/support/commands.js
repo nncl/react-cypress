@@ -1,4 +1,4 @@
-import '@testing-library/cypress/add-commands'
+// import '@testing-library/cypress/add-commands'
 
 Cypress.Commands.add('getByDataCy', (selector) => {
   return cy.get(`[data-test=${selector}]`);
