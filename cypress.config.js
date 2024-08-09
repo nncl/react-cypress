@@ -7,4 +7,7 @@ module.exports = defineConfig({
       // implement node event listeners here
     },
   },
+  env: {
+    mobileViewportWidthBreakpoint: 420,
+  }
 });

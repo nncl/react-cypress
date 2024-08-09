@@ -1,16 +1,21 @@
+import { isMobile } from '../support/utils';
+
 describe('Testing multiple pages', () => {
   it('should access card page', () => {
-    cy.visit('/')
-    cy.getByDataCy('botao-login').click();
-    cy.getByDataCy('email-input').type('hello2@world.com')
-    cy.getByDataCy('senha-input').type('123456')
-    cy.getByDataCy('botao-enviar').click()
+    cy.login(Cypress.env('email'), Cypress.env('senha'));
 
-    cy.location('pathname').should('eq',  '/home')
+    cy.visit('/home');
+    cy.location('pathname').should('eq', '/home');
 
-    cy.getByDataCy('app-home').find('a').eq(1).click();
+    if (isMobile()) {
+      cy.getByDataCy('menu-burguer').should('be.visible');
+      cy.getByDataCy('menu-burguer').click();
+      cy.getByDataCy('menu-lateral').find('a').eq(2).click();
+    } else {
+      cy.getByDataCy('app-home').find('a').eq(2).click();
+    }
 
-    cy.getByDataCy('titulo-cartoes').should('exist').and('have.text', 'Meus cartões')
-    cy.location('pathname').should('eq',  '/home/cartoes')
-  })
-})
+    cy.getByDataCy('titulo-cartoes').should('exist').and('have.text', 'Meus cartões');
+    cy.location('pathname').should('eq', '/home/cartoes');
+  });
+});
