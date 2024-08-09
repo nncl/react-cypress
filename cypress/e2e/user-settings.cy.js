@@ -34,6 +34,18 @@ describe('User Settings spec', () => {
       });
 
       cy.url().should('contain', '/home');
+
+      cy.window().then((win) => {
+        expect(win.localStorage.getItem('nomeUsuario')).to.eq(newUser.name);
+
+        const userId = win.localStorage.getItem('userId');
+
+        cy.request('GET', `http://localhost:8000/users/${userId}`).then((response) => {
+          expect(response.status).to.eq(200);
+          expect(response.body.nome).to.eq(newUser.name);
+          expect(response.body.senha).to.eq(newUser.password);
+        });
+      });
     });
   });
 });
